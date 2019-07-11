@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Buffers;
 
-namespace ProxyClient{
+namespace PairStream{
 	public class pair : System.IO.Stream{
 		private StreamWriter _B;
 		private StreamReader _A;

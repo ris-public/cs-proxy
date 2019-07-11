@@ -2,7 +2,7 @@
 using System.Text;
 using System.IO;
 using System.Diagnostics;
-using ProxyClient;
+using PairStream;
 
 namespace DTLSServer
 {
