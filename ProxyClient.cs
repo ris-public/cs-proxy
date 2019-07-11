@@ -60,9 +60,9 @@ namespace ProxyClient {
 			Proc.StartInfo.Arguments=$"{Unbuffer_Args} nc -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}";
 			Proc.StartInfo.RedirectStandardInput=true;
 			if (VERBOSE){
-			SetColour(5,0);
-			System.Console.Error.WriteLine(Proc.StartInfo.FileName + " " + Proc.StartInfo.Arguments);
-			ResetColour();
+				SetColour(5,0);
+				System.Console.Error.WriteLine(Proc.StartInfo.FileName + " " + Proc.StartInfo.Arguments);
+				ResetColour();
 			}
 			Proc.Start();
 
