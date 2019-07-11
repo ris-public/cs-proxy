@@ -11,7 +11,8 @@ using PairStream;
 
 namespace ProxyClient {
 	class ProxySocket{
-
+		
+		protected bool VERBOSE;
 		protected StreamWriter A;
 		protected StreamReader B;
 		protected Process Proc = new Process();
@@ -30,6 +31,7 @@ namespace ProxyClient {
 			this.Port=Port;
 			this.ProxyServerName=ProxyServerName;
 			this.Method=Method;
+			this.VERBOSE=false;
 			Unbuffer = "stdbuf";
 			Unbuffer_Args="-i0 -o0";
 
@@ -41,6 +43,7 @@ namespace ProxyClient {
 			this.Port=Port;
 			this.ProxyServerName=ProxyServerName;
 			this.Method=Method;
+			this.VERBOSE=false;
 			this.Unbuffer = Unbuffer_Command;
 			this.Unbuffer_Args=Unbuffer_Args;
 
@@ -55,10 +58,12 @@ namespace ProxyClient {
 			}
 
 			Proc.StartInfo.Arguments=$"{Unbuffer_Args} nc -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}";
+			Proc.StartInfo.RedirectStandardInput=true;
+			if (VERBOSE){
 			SetColour(5,0);
 			System.Console.Error.WriteLine(Proc.StartInfo.FileName + " " + Proc.StartInfo.Arguments);
 			ResetColour();
-			Proc.StartInfo.RedirectStandardInput=true;
+			}
 			Proc.Start();
 
 			A = Proc.StandardInput;
