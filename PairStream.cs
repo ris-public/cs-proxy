@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Buffers;
 
 namespace ProxyClient{
-	internal class pair : System.IO.Stream{
+	public class pair : System.IO.Stream{
 		private StreamWriter _B;
 		private StreamReader _A;
 		public pair(StreamReader A, StreamWriter B){
@@ -69,7 +69,7 @@ namespace ProxyClient{
 			new Thread(()=>B.CopyTo(A)).Start();
 		}
 	}
-	internal class statpair: pair {
+	public class statpair: pair {
 		private ulong _BR;
 		private ulong _BW;
 		public statpair(StreamReader A, StreamWriter B) : base(A,B){
@@ -101,6 +101,28 @@ namespace ProxyClient{
 		}
 	}
 
+	public class DupStream : statpair {
+		public DupStream (StreamReader A, StreamWriter B): base(A, B){}
+		public async Task CopyToAsyncInternal(Stream[] destinations, Int32 bufferSize, CancellationToken cancellationToken)
+		{
+			byte[] buffer = ArrayPool<byte>.Shared.Rent(bufferSize);
+			try
+			{
+				while (true)
+				{
+					int bytesRead = await ReadAsync(new Memory<byte>(buffer), cancellationToken).ConfigureAwait(false);
+					if (bytesRead == 0) break;
+					foreach (Stream destination in destinations){
+						await destination.WriteAsync(new ReadOnlyMemory<byte>(buffer, 0, bytesRead), cancellationToken).ConfigureAwait(false);
+					}
+				}
+			}
+			finally
+			{
+				ArrayPool<byte>.Shared.Return(buffer);
+			}
+		}
+	}
 
 
 }

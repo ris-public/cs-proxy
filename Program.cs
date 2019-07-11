@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Buffers;
+using ProxyClient;
 
 namespace DTLSClient
 {
@@ -39,24 +40,37 @@ namespace DTLSClient
 			dtls.WaitForExit();
 		}
 	}
-	class DTLSClient{
+	class ProxySocket{
 
 		protected StreamWriter A;
 		protected StreamReader B;
 		protected Process Proc = new Process();
-		protected string hostname;
-		protected string port;
-		protected byte[] PSK;
+		protected string HostName;
+		protected int Port;
+		protected int ProxyPort;
+		protected string Method;
+		protected string ProxyServerPort;
 		public string Unbuffer;
 		public string Unbuffer_Args;
 
-		public DTLSClient(string hostname, string port, byte[] PSK){
+		public DTLSClient(string HostName, int port, string ProxyServerName, int Port, string Method){
 			this.Proc = new Process();
-			this.port=port;
-			this.hostname=hostname;
-			this.PSK=PSK;
+			this.ProxyPort=ProxyPort;
+			this.HostName=HostName;
+			this.Port=Port;
+			this.ProxyServerName=ProxyServerName;
 			//Unbuffer = "stdbuf";
 			//Unbuffer_Args="-i0 -o0";
+
+		}
+		public DTLSClient(string HostName, int port, string ProxyServerName, int Port, string Method, string Unbuffer_Command, string Unbuffer_Args){
+			this.Proc = new Process();
+			this.ProxyPort=ProxyPort;
+			this.HostName=HostName;
+			this.Port=Port;
+			this.ProxyServerName=ProxyServerName;
+			this.Unbuffer = Unbuffer_Command;
+			this.Unbuffer_Args=Unbuffer_Args;
 
 		}
 		public void Start(){
@@ -64,14 +78,11 @@ namespace DTLSClient
 			this.Proc.StartInfo.FileName=$"{Unbuffer}";
 			this.Proc.StartInfo.UseShellExecute = false;
 			this.Proc.StartInfo.RedirectStandardOutput = true;
-			string psk_hex=BitConverter.ToString(PSK).Replace("-", String.Empty);
-			//Proc.StartInfo.Arguments=$"{Unbuffer_Args} openssl s_server -nocert -dtls -accept {port} -psk {psk_hex}";
 
-			Proc.StartInfo.Arguments=$"{Unbuffer_Args} openssl s_client -dtls -connect {hostname}:{port} -psk {psk_hex} -quiet";
+			Proc.StartInfo.Arguments=$"{Unbuffer_Args} nc -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}";
 			SetColour(5,0);
 			System.Console.Error.WriteLine(Proc.StartInfo.FileName + " " + Proc.StartInfo.Arguments);
 			ResetColour();
-			//Proc.OutputDataReceived += ret2;
 			Proc.StartInfo.RedirectStandardInput=true;
 			Proc.Start();
 
@@ -102,118 +113,4 @@ namespace DTLSClient
 		}
 	}
 
-	internal class DupStream : statpair {
-		public DupStream (StreamReader A, StreamWriter B): base(A, B){}
-		public async Task CopyToAsyncInternal(Stream[] destinations, Int32 bufferSize, CancellationToken cancellationToken)
-		{
-			byte[] buffer = ArrayPool<byte>.Shared.Rent(bufferSize);
-			try
-			{
-				while (true)
-				{
-					int bytesRead = await ReadAsync(new Memory<byte>(buffer), cancellationToken).ConfigureAwait(false);
-					if (bytesRead == 0) break;
-					foreach (Stream destination in destinations){
-						await destination.WriteAsync(new ReadOnlyMemory<byte>(buffer, 0, bytesRead), cancellationToken).ConfigureAwait(false);
-					}
-				}
-			}
-			finally
-			{
-				ArrayPool<byte>.Shared.Return(buffer);
-			}
-		}
-	}
-	internal class pair : System.IO.Stream{
-		private StreamWriter _B;
-		private StreamReader _A;
-		public pair(StreamReader A, StreamWriter B){
-			this._A = A;
-			this._B = B;
-		}
-		public override int Read(byte[] A, int B, int C){
-			return _A.BaseStream.Read(A,B,C);
-		}
-		public override void Write(byte[] A, int B, int C){
-			//Console.WriteLine(Encoding.Default.GetString(A));
-			_B.BaseStream.Write(A,B,C);
-			_B.Flush();
-		}
-		public override bool CanSeek{
-			get {
-				return false;
-			}
-		}
-		public override long Position{
-			set {
-				throw new NotSupportedException();
-			}
-			get {
-				throw new NotSupportedException();
-			}
-		}
-		public override bool CanRead{
-			get{
-				return true;
-			}
-		}
-		public override bool CanWrite{
-			get{
-				return true;
-			}
-		}
-		public override long Seek(long offset, System.IO.SeekOrigin origin){
-			throw new NotSupportedException();
-		}
-		public override long Length{
-			get {
-				throw new NotSupportedException();
-			}
-		}
-		public override void SetLength(long val){
-			throw new NotSupportedException();
-		}
-		public override void Flush(){
-		}
-		public bool EndOfStream{
-			get{
-				return _A.EndOfStream;
-			}
-		}
-		public static void BindStreams(Stream A, Stream B){
-			new Thread(()=>A.CopyTo(B)).Start();
-			new Thread(()=>B.CopyTo(A)).Start();
-		}
-	}
-	internal class statpair: pair {
-		private ulong _BR;
-		private ulong _BW;
-		public statpair(StreamReader A, StreamWriter B) : base(A,B){
-			_BR=0;
-			_BW=0;
-		}
-		public ulong BytesRead{
-			get {
-				return _BR;
-			}
-		}
-		public ulong BytesWritten{
-			get {
-				return _BW;
-			}
-		}
-		public override int Read(byte[] A, int B, int C){
-			_BR += Convert.ToUInt64(C);
-			return base.Read(A, B, C);
-		}
-		public override void Write(byte[] A, int B, int C){
-			_BW += Convert.ToUInt64(C);
-			base.Write(A, B, C);
-			return;
-		}
-		public void ResetStats(){
-			_BR=0;
-			_BW=0;
-		}
-	}
 }
