@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Buffers;
 using ProxyClient;
 
-namespace DTLSClient
+namespace ProxyClient
 {
 	class Program
 	{
@@ -25,19 +25,19 @@ namespace DTLSClient
 			SetColour(2,0);
 			Console.Error.WriteLine("Hello World!");
 			ResetColour();
-			DTLSClient dtls = new DTLSClient("127.0.0.1", "10000", new byte[] {0xBA,0xA0});
-			dtls.Unbuffer="stdbuf";
-			dtls.Unbuffer_Args="-i0 -o0";
-			dtls.Start();
+			ProxySocket ps = new ProxySocket("127.0.0.1", 10000, "proxy.com", 3128, "CONNECT");
+			ps.Unbuffer="stdbuf";
+			ps.Unbuffer_Args="-i0 -o0";
+			ps.Start();
 			statpair IOStream = new statpair(new StreamReader(Console.OpenStandardInput()), new StreamWriter(Console.OpenStandardOutput()));
-			new Thread(()=>IOStream.CopyTo(dtls.GetStream(), 16)).Start();
-			new Thread(() => dtls.GetStream().CopyTo(IOStream, 16)).Start();
+			new Thread(()=>IOStream.CopyTo(ps.GetStream(), 16)).Start();
+			new Thread(() => ps.GetStream().CopyTo(IOStream, 16)).Start();
 			//new Thread(() => dtls.GetStream().Write(Encoding.Default.GetBytes("It Works!"+Environment.NewLine))).Start();
-			pair.BindStreams(dtls.GetStream(), IOStream);
-			pair.BindStreams(dtls.GetStream(), IOStream);
+			pair.BindStreams(ps.GetStream(), IOStream);
+			pair.BindStreams(ps.GetStream(), IOStream);
 			Timer T = new Timer((S)=>{float BR = (float)IOStream.BytesRead/(1024*1024*5); float BW = (float)IOStream.BytesWritten/(1024*1024*5); SetColour(2,0);Console.Error.WriteLine($"R: {BR:000.00} MB/s.\tW: {BW:000.00} MB/s.");IOStream.ResetStats();ResetColour();},new AutoResetEvent(false),5000,5000);
 			Console.WriteLine("End of File");
-			dtls.WaitForExit();
+			ps.WaitForExit();
 		}
 	}
 	class ProxySocket{
@@ -49,26 +49,28 @@ namespace DTLSClient
 		protected int Port;
 		protected int ProxyPort;
 		protected string Method;
-		protected string ProxyServerPort;
+		protected string ProxyServerName;
 		public string Unbuffer;
 		public string Unbuffer_Args;
 
-		public ProxyClient(string HostName, int port, string ProxyServerName, int Port, string Method){
+		public ProxySocket(string HostName, int Port, string ProxyServerName, int ProxyPort, string Method){
 			this.Proc = new Process();
 			this.ProxyPort=ProxyPort;
 			this.HostName=HostName;
 			this.Port=Port;
 			this.ProxyServerName=ProxyServerName;
-			//Unbuffer = "stdbuf";
-			//Unbuffer_Args="-i0 -o0";
+			this.Method=Method;
+			Unbuffer = "stdbuf";
+			Unbuffer_Args="-i0 -o0";
 
 		}
-		public ProxyClient(string HostName, int port, string ProxyServerName, int Port, string Method, string Unbuffer_Command, string Unbuffer_Args){
+		public ProxySocket(string HostName, int Port, string ProxyServerName, int ProxyPort, string Method, string Unbuffer_Command, string Unbuffer_Args){
 			this.Proc = new Process();
 			this.ProxyPort=ProxyPort;
 			this.HostName=HostName;
 			this.Port=Port;
 			this.ProxyServerName=ProxyServerName;
+			this.Method=Method;
 			this.Unbuffer = Unbuffer_Command;
 			this.Unbuffer_Args=Unbuffer_Args;
 
@@ -78,6 +80,9 @@ namespace DTLSClient
 			this.Proc.StartInfo.FileName=$"{Unbuffer}";
 			this.Proc.StartInfo.UseShellExecute = false;
 			this.Proc.StartInfo.RedirectStandardOutput = true;
+			if (Method != "4" && Method != "5" && Method != "connect"){
+				System.Console.WriteLine($"Warning: Supported protocols are 4 (SOCKS v.4), 5 (SOCKS v.5) and connect (HTTPS proxy). If the protocol is not specified, SOCKS version 5 is used. Got: {Method}.");
+			}
 
 			Proc.StartInfo.Arguments=$"{Unbuffer_Args} nc -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}";
 			SetColour(5,0);
