@@ -53,7 +53,7 @@ namespace DTLSClient
 		public string Unbuffer;
 		public string Unbuffer_Args;
 
-		public DTLSClient(string HostName, int port, string ProxyServerName, int Port, string Method){
+		public ProxyClient(string HostName, int port, string ProxyServerName, int Port, string Method){
 			this.Proc = new Process();
 			this.ProxyPort=ProxyPort;
 			this.HostName=HostName;
@@ -63,7 +63,7 @@ namespace DTLSClient
 			//Unbuffer_Args="-i0 -o0";
 
 		}
-		public DTLSClient(string HostName, int port, string ProxyServerName, int Port, string Method, string Unbuffer_Command, string Unbuffer_Args){
+		public ProxyClient(string HostName, int port, string ProxyServerName, int Port, string Method, string Unbuffer_Command, string Unbuffer_Args){
 			this.Proc = new Process();
 			this.ProxyPort=ProxyPort;
 			this.HostName=HostName;
