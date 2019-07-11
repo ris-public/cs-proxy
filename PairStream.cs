@@ -1,5 +1,6 @@
 /* Copyright [2019] RISHIKESHAN LAVAKUMAR <github-public [at] ris.fi>
-   Has some minor code from .net core, which is IP of Microsoft Corporation.
+   Has some minor code from .net core, which is extracted from 
+   IP of Microsoft Corporation.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
