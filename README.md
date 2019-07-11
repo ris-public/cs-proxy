@@ -12,4 +12,7 @@ GetStream() returns the stream of ProxySocket. ProxySocket should be Start()ed t
 #DTLS PSK Client/Server
 WARNING: Same.
 
-DTLS wrapper u
+DTLS wrapper using OpenSSL. Needs openssl in PATH.
+
+#Architecture
+Please refer to the Test file.
