@@ -9,10 +9,10 @@ ProxySocket should be initialized with the values; default uses stdbuf but can b
 GetStream() returns the stream of ProxySocket. ProxySocket should be Start()ed to connect.
 
 
-#DTLS PSK Client/Server
+# DTLS PSK Client/Server
 WARNING: Same.
 
 DTLS wrapper using OpenSSL. Needs openssl in PATH.
 
-#Architecture
+# Architecture
 Please refer to the Test file.
