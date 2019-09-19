@@ -10,7 +10,7 @@
 <Company>N/A</Company>
 <PackageTags>Proxy;DTLS;netcat</PackageTags>
 <Description>
-Proxy support for C# using OpenBSD nc. nc should be installed or shipped with this (nc is a small executable). stdbuf (GNU coreutils/BSD) or unbuffer from expect (TCL) should preferably be there too (although this can work without it, there might be buffering delays).
+SOCKS/HTTP Proxy/DTLS support for C# using OpenBSD nc and OpenSSL CLI. nc should be installed or shipped with this (nc is a small executable). stdbuf (GNU coreutils/BSD) or unbuffer from expect (TCL) should preferably be there too (although this can work without it, there might be buffering delays).
 </Description>
   </PropertyGroup>
 
