@@ -6,13 +6,15 @@
     <RootNamespace>cs_proxy</RootNamespace>
 <StartupObject>ProxyClient.Program</StartupObject>
 <PackageId>Rishi.Proxy</PackageId>
-<Version>1.0.0</Version>
+<Version>1.0.2</Version>
 <Authors>Rishikeshan L.</Authors>
 <Company>N/A</Company>
 <PackageTags>Proxy;DTLS;netcat</PackageTags>
 <Description>
-SOCKS/HTTP Proxy/DTLS support for C# using OpenBSD nc and OpenSSL CLI. nc should be installed or shipped with this (nc is a small executable). stdbuf (GNU coreutils/BSD) or unbuffer from expect (TCL) should preferably be there too (although this can work without it, there might be buffering delays).
+SOCKS/HTTP Proxy/DTLS support for C# using OpenBSD nc and OpenSSL CLI. nc/OpenSSL should be installed or shipped with this (nc is a small executable). stdbuf (GNU coreutils/BSD) or unbuffer from expect (TCL) should preferably be there too (although this can work without it, there might be buffering delays).
 </Description>
+<License>Apache-2.0</License>
+<projectUrl>https://github.com/ris-public/cs-proxy</projectUrl>
   </PropertyGroup>
 
 </Project>
