@@ -13,7 +13,7 @@
 <Description>
 SOCKS/HTTP Proxy/DTLS support for C# using OpenBSD nc and OpenSSL CLI. nc/OpenSSL should be installed or shipped with this (nc is a small executable). stdbuf (GNU coreutils/BSD) or unbuffer from expect (TCL) should preferably be there too (although this can work without it, there might be buffering delays).
 </Description>
-<License type="expression">Apache-2.0</License>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 <projectUrl>https://github.com/ris-public/cs-proxy</projectUrl>
   </PropertyGroup>
 
