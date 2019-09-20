@@ -5,8 +5,8 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Buffers;
-using ProxyClient;
-using PairStream;
+using Rishi.ProxyClient;
+using Rishi.PairStream;
 
 namespace DTLSClient
 {

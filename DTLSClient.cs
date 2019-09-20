@@ -21,9 +21,9 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Buffers;
-using PairStream;
+using Rishi.PairStream;
 
-namespace DTLSClient{
+namespace Rishi.DTLSClient{
 	class DTLSClient{
 
 		protected StreamWriter A;

@@ -4,7 +4,7 @@ using System.IO;
 using System.Diagnostics;
 
 
-namespace DTLSServer{
+namespace Rishi.DTLSServer{
 		class Program
 		{
 				static void Main(string[] args)
