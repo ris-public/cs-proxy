@@ -3,9 +3,9 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <RootNamespace>cs_proxy</RootNamespace>
-<StartupObject>ProxyClient.Program</StartupObject>
+<StartupObject>Rishi.ProxyClient.Program</StartupObject>
 <PackageId>Rishi.Proxy</PackageId>
-<Version>1.0.4</Version>
+<Version>1.0.5</Version>
 <Authors>Rishikeshan L.</Authors>
 <Company>N/A</Company>
 <PackageTags>Proxy;DTLS;netcat</PackageTags>
