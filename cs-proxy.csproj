@@ -14,7 +14,7 @@ SOCKS/HTTP Proxy/DTLS support for C# using OpenBSD nc and OpenSSL CLI. nc/OpenSS
 </Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 <projectUrl>https://ris.rocks/</projectUrl>
-<PackageprojectUrl>https://ris.rocks/</PackageprojectUrl>
+<PackageprojectUrl>https://ris.fi/</PackageprojectUrl>
 <RepositoryUrl>https://github.com/ris-public/cs-proxy</RepositoryUrl>
 <PackageIconUrl>https://ris.rocks/favicon.ico</PackageIconUrl>
 <IncludeSource>true</IncludeSource>
