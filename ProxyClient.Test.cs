@@ -42,7 +42,7 @@ namespace Rishi.ProxyClient
 			SetColour(2,0);
 			Console.Error.WriteLine("Hello World!");
 			ResetColour();
-			ProxySocket ps = new ProxySocket("127.0.0.1", 10000, "proxy.com", 3128, "CONNECT");
+			ProxySocket ps = new ProxySocket("google.com", 80, "127.0.0.1", 1080, "5");
 			ps.Unbuffer="stdbuf";
 			ps.Unbuffer_Args="-i0 -o0";
 			ps.Start();
