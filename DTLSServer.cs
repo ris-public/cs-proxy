@@ -46,7 +46,7 @@ namespace Rishi
 			this.Proc.StartInfo.UseShellExecute = false;
 			this.Proc.StartInfo.RedirectStandardOutput = true;
 			string psk_hex=BitConverter.ToString(PSK).Replace("-", String.Empty);
-			Proc.StartInfo.Arguments=$"{Unbuffer_Args} openssl s_server -nocert -dtls -accept {port} -psk {psk_hex}";
+			Proc.StartInfo.Arguments=$"{Unbuffer_Args} openssl s_server -dtls -accept {port} -nocert -psk {psk_hex}";
 			System.Console.WriteLine(Proc.StartInfo.Arguments);
 			//Proc.OutputDataReceived += ret2;
 			Proc.StartInfo.RedirectStandardInput=true;
