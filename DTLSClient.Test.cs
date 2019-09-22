@@ -8,7 +8,7 @@ using System.Buffers;
 using Rishi.ProxyClient;
 using Rishi.PairStream;
 
-namespace Rishi
+namespace Rishi.DTLSC
 {
 	class Program
 	{

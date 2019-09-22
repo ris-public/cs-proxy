@@ -5,7 +5,7 @@ using System.Diagnostics;
 using Rishi;
 
 
-namespace Rishi_DTLSS{
+namespace Rishi.DTLSS{
 		class Program
 		{
 				static void Main(string[] args)
