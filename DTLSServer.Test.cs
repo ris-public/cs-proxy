@@ -2,9 +2,10 @@ using System;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
+using Rishi;
 
 
-namespace Rishi.DTLSServer{
+namespace Rishi_DTLSS{
 		class Program
 		{
 				static void Main(string[] args)

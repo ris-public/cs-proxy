@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using System.Buffers;
 using Rishi.PairStream;
 
-namespace Rishi.DTLSClient{
+namespace Rishi{
 	public class DTLSClient{
 
 		protected StreamWriter A;

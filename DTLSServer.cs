@@ -19,7 +19,7 @@ using System.IO;
 using System.Diagnostics;
 using Rishi.PairStream;
 
-namespace Rishi.DTLSServer
+namespace Rishi
 {
 	public class DTLSServer{
 		protected StreamWriter A;
