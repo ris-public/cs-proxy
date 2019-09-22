@@ -21,7 +21,7 @@ using Rishi.PairStream;
 
 namespace Rishi.DTLSServer
 {
-	class DTLSServer{
+	public class DTLSServer{
 		protected StreamWriter A;
 		protected StreamReader B;
 		protected Process Proc = new Process();

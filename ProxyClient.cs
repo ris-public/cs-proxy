@@ -26,7 +26,7 @@ using Rishi.PairStream;
 
 
 namespace Rishi.ProxyClient {
-	class ProxySocket{
+	public class ProxySocket{
 		
 		protected bool VERBOSE;
 		protected StreamWriter A;

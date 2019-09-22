@@ -24,7 +24,7 @@ using System.Buffers;
 using Rishi.PairStream;
 
 namespace Rishi.DTLSClient{
-	class DTLSClient{
+	public class DTLSClient{
 
 		protected StreamWriter A;
 		protected StreamReader B;
