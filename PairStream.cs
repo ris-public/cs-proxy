@@ -14,8 +14,6 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-
-
 using System;
 using System.Text;
 using System.IO;
@@ -25,6 +23,9 @@ using System.Threading.Tasks;
 using System.Buffers;
 
 namespace Rishi.PairStream{
+///<summary>
+/// The pair class of the module Rishi.PairStream. Binds a StreamWriter and a StreamReader as a stream.
+///</summary>
 	public class pair : System.IO.Stream{
 		private StreamWriter _B;
 		private StreamReader _A;
@@ -82,11 +83,24 @@ namespace Rishi.PairStream{
 				return _A.EndOfStream;
 			}
 		}
+///<summary>
+/// Bind two streams (i.e. SR→SW, SW→SR) or read from Stream A and writeto Stream B and read from B and write to A).
+///</summary>
 		public static void BindStreams(Stream A, Stream B){
 			new Thread(()=>A.CopyTo(B)).Start();
 			new Thread(()=>B.CopyTo(A)).Start();
 		}
+///<summary>
+/// Async bind two streams. Doesn't throw an exception to the thread from which it is being called.
+///</summary>
+		public static void BindStreamsAsync(Stream A, Stream B){
+			new Thread(()=>A.CopyToAsync(B)).Start();
+			new Thread(()=>B.CopyToAsync(A)).Start();
+		}
 	}
+///<summary>
+/// A subclass of <c>Rishi.PairStream.pair</c> which keeps track of number of bytes transferred until Reset().
+///</summary>
 	public class statpair: pair {
 		private ulong _BR;
 		private ulong _BW;
@@ -119,6 +133,9 @@ namespace Rishi.PairStream{
 		}
 	}
 
+///<summary>
+/// A subclass of <c>Rishi.PairStream.statpair</c> which copies to an array of streams.
+///</summary>
 	public class DupStream : statpair {
 		public DupStream (StreamReader A, StreamWriter B): base(A, B){}
 		public async Task CopyToAsyncInternal(Stream[] destinations, Int32 bufferSize, CancellationToken cancellationToken)
