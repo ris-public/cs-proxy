@@ -21,6 +21,10 @@ SOCKS/HTTP Proxy/DTLS support for C# using OpenBSD nc and OpenSSL CLI. nc/OpenSS
 <Copyright>Copyright © [2019] RISHIKESHAN LAVAKUMAR "github-public [at] ris.fi"
 </Copyright>
 <TargetFrameworks>netcoreapp2.1;netcoreapp2.2</TargetFrameworks>
+<GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
 </Project>
