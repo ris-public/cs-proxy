@@ -71,7 +71,9 @@ namespace Rishi.ProxyClient {
 			if (Method != "4" && Method != "5" && Method != "connect"){
 				System.Console.WriteLine($"Warning: Supported protocols are 4 (SOCKS v.4), 5 (SOCKS v.5) and connect (HTTPS proxy). If the protocol is not specified, SOCKS version 5 is used. Got: {Method}.");
 			}
-			SS = new ShellSocket($"nc", " -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}");
+			string PrCommand = $"nc";
+			string ClArgs = $" -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}";
+			SS = new ShellSocket(PrCommand, ClArgs);
 			if (VERBOSE){
 				SetColour(5,0);
 				System.Console.Error.WriteLine(Proc.StartInfo.FileName + " " + Proc.StartInfo.Arguments);
@@ -82,7 +84,7 @@ namespace Rishi.ProxyClient {
 		}
 
 		public Stream GetStream(){
-			return new S;
+			return S;
 		}
 		public void Kill(){
 			Proc.Kill();
