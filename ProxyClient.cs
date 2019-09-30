@@ -74,9 +74,10 @@ namespace Rishi.ProxyClient {
 				///</summary>
 				///<seealso cref="ProxySocket(string, int, string, int, string, string, string)"/>
 				/// <param name="Command">Target Hostname</param>
-				/// <param name="Args">Target Port.</param>
-				/// <param name="ProxyServerName">Unbuffer command. Use "" or null to run directly at your own risk.</param>
-				/// <param name="ProxyServerName">Unbuffer arguments.</param>
+				/// <param name="Port">Target Port.</param>
+				/// <param name="ProxyServerName">Proxy servername.</param>
+				/// <param name="ProxyPort">Proxy Port.</param>
+				/// <param name="Method">Method: "4" (SOCKS 4), "5" (SOCKS 5), "connect" (HTTP(S) CONNECT).</param>
 				public ProxySocket(string HostName, int Port, string ProxyServerName, int ProxyPort, string Method){
 						this.ProxyPort=ProxyPort;
 						this.HostName=HostName;
