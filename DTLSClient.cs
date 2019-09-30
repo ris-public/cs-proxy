@@ -76,7 +76,7 @@ namespace Rishi{
 						string ClArguments=$"s_client -dtls -connect {HostName}:{Port} -psk {psk_hex} -quiet";
 						SS = new ShellSocket(PrCommand, ClArguments, Unbuffer, Unbuffer_Args);
 						SetColour(5,0);
-						System.Console.Error.WriteLine(Proc.StartInfo.FileName + " " + Proc.StartInfo.Arguments);
+						System.Console.Error.WriteLine(PrCommand + " " + ClArguments);
 						ResetColour();
 						SS.Start();
 				}
