@@ -71,23 +71,14 @@ namespace Rishi{
 						this.PSK=PSK;
 				}
 				public void Start(){
-
-						this.Proc.StartInfo.FileName=$"{Unbuffer}";
-						this.Proc.StartInfo.UseShellExecute = false;
-						this.Proc.StartInfo.RedirectStandardOutput = true;
 						string psk_hex=BitConverter.ToString(PSK).Replace("-", String.Empty);
-						//Proc.StartInfo.Arguments=$"{Unbuffer_Args} openssl s_server -nocert -dtls -accept {port} -psk {psk_hex}";
 						string PrCommand=$"openssl";
 						string ClArguments=$"s_client -dtls -connect {hostname}:{port} -psk {psk_hex} -quiet";
+						SS = new ShellSocket(PrCommand, ClArguments, Unbuffer, Unbuffer_Args);
 						SetColour(5,0);
 						System.Console.Error.WriteLine(Proc.StartInfo.FileName + " " + Proc.StartInfo.Arguments);
 						ResetColour();
-						//Proc.OutputDataReceived += ret2;
-						Proc.StartInfo.RedirectStandardInput=true;
-						Proc.Start();
-
-						A = Proc.StandardInput;
-						B = Proc.StandardOutput;
+						SS.Start();
 				}
 
 				///<summary>
