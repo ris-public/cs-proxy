@@ -69,6 +69,14 @@ namespace Rishi.ProxyClient {
 				///</summary>
 				protected Stream S;
 
+				///<summary>
+				///Constructor.
+				///</summary>
+				///<seealso cref="ProxySocket(string, int, string, int, string, string, string)"/>
+				/// <param name="Command">A command.</param>
+				/// <param name="Args">Arguments.</param>
+				/// <param name="Unbuffer_Command">Unbuffer command. Use "" or null to run directly at your own risk.</param>
+				/// <param name="Unbuffer_Args">Unbuffer arguments.</param>
 				public ProxySocket(string HostName, int Port, string ProxyServerName, int ProxyPort, string Method){
 						this.ProxyPort=ProxyPort;
 						this.HostName=HostName;
@@ -80,6 +88,14 @@ namespace Rishi.ProxyClient {
 						Unbuffer_Args="-i0 -o0";
 
 				}
+				///<summary>
+				///Constructor.
+				///</summary>
+				///<seealso cref="ProxySocket(string, string)"/>
+				/// <param name="Command">A command.</param>
+				/// <param name="Args">Arguments.</param>
+				/// <param name="Unbuffer_Command">Unbuffer command. Use "" or null to run directly at your own risk.</param>
+				/// <param name="Unbuffer_Args">Unbuffer arguments.</param>
 				public ProxySocket(string HostName, int Port, string ProxyServerName, int ProxyPort, string Method, string Unbuffer_Command, string Unbuffer_Args){
 						this.ProxyPort=ProxyPort;
 						this.HostName=HostName;
