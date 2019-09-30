@@ -127,6 +127,10 @@ namespace Rishi.ProxyClient {
 						S=SS.GetStream();
 				}
 
+				///<summary>
+				///Get the Stream formed by the process.
+				///Should be Start()ed first.
+				///</summary>
 				public Stream GetStream(){
 						return S;
 				}
