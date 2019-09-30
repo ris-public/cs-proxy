@@ -40,9 +40,6 @@ namespace Rishi{
 			this.port=port;
 			this.hostname=hostname;
 			this.PSK=PSK;
-			//Unbuffer = "stdbuf";
-			//Unbuffer_Args="-i0 -o0";
-
 		}
 		public void Start(){
 
@@ -51,8 +48,8 @@ namespace Rishi{
 			this.Proc.StartInfo.RedirectStandardOutput = true;
 			string psk_hex=BitConverter.ToString(PSK).Replace("-", String.Empty);
 			//Proc.StartInfo.Arguments=$"{Unbuffer_Args} openssl s_server -nocert -dtls -accept {port} -psk {psk_hex}";
-
-			Proc.StartInfo.Arguments=$"{Unbuffer_Args} openssl s_client -dtls -connect {hostname}:{port} -psk {psk_hex} -quiet";
+			string PrCommand=$"openssl";
+			string ClArguments=$"s_client -dtls -connect {hostname}:{port} -psk {psk_hex} -quiet";
 			SetColour(5,0);
 			System.Console.Error.WriteLine(Proc.StartInfo.FileName + " " + Proc.StartInfo.Arguments);
 			ResetColour();
