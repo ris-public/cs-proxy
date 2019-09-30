@@ -45,7 +45,13 @@ namespace Rishi.ProxyClient {
 		///The ShellSocket.
 		///</summary>
 		protected ShellSocket SS;
+		///<summary>
+		///The Hostname of the final destination.
+		///</summary>
 		protected string HostName;
+		///<summary>
+		///The Port of the final destination.
+		///</summary>
 		protected int Port;
 		protected int ProxyPort;
 		protected string Method;
