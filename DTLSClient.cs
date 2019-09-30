@@ -50,7 +50,7 @@ namespace Rishi{
 				///<summary>
 				///The Port of the final destination.
 				///</summary>
-				protected int Port;
+				protected string Port;
 				///<summary>
 				///The shell unbuffer/stdbuf command, default: none.
 				///</summary>
@@ -66,15 +66,14 @@ namespace Rishi{
 				protected byte[] PSK;
 
 				public DTLSClient(string hostname, string port, byte[] PSK){
-						this.Proc = new Process();
-						this.port=port;
-						this.hostname=hostname;
+						this.Port=port;
+						this.HostName=hostname;
 						this.PSK=PSK;
 				}
 				public void Start(){
 						string psk_hex=BitConverter.ToString(PSK).Replace("-", String.Empty);
 						string PrCommand=$"openssl";
-						string ClArguments=$"s_client -dtls -connect {hostname}:{port} -psk {psk_hex} -quiet";
+						string ClArguments=$"s_client -dtls -connect {HostName}:{Port} -psk {psk_hex} -quiet";
 						SS = new ShellSocket(PrCommand, ClArguments, Unbuffer, Unbuffer_Args);
 						SetColour(5,0);
 						System.Console.Error.WriteLine(Proc.StartInfo.FileName + " " + Proc.StartInfo.Arguments);
