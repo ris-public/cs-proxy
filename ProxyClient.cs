@@ -110,12 +110,21 @@ namespace Rishi.ProxyClient {
 				public Stream GetStream(){
 						return S;
 				}
+				///<summary>
+				///Kill the proxy process.
+				///</summary>
 				public void Kill(){
 						SS.Kill();
 				}
+				///<summary>
+				///Close the proxy process.
+				///</summary>
 				public void Close(){
 						SS.Close();
 				}
+				///<summary>
+				///Wait for the proxy process to exit.
+				///</summary>
 				public void WaitForExit(){
 						SS.WaitForExit();
 				}
