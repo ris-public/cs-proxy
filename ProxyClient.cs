@@ -97,7 +97,7 @@ namespace Rishi.ProxyClient {
 						}
 						string PrCommand = $"nc";
 						string ClArgs = $" -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}";
-						SS = new ShellSocket(PrCommand, ClArgs);
+						SS = new ShellSocket(PrCommand, ClArgs, Unbuffer, Unbuffer_Args);
 						if (VERBOSE){
 								SetColour(5,0);
 								System.Console.Error.WriteLine(PrCommand + " " + ClArgs);
