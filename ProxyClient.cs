@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using System.Buffers;
 using Rishi.ProxyClient;
 using Rishi.PairStream;
+using Rishi.ShellBind;
 
 
 namespace Rishi.ProxyClient {
@@ -34,7 +35,7 @@ namespace Rishi.ProxyClient {
 		protected bool VERBOSE;
 		protected StreamWriter A;
 		protected StreamReader B;
-		protected Process Proc = new Process();
+		protected ShellSocket SS;
 		protected string HostName;
 		protected int Port;
 		protected int ProxyPort;
@@ -44,7 +45,6 @@ namespace Rishi.ProxyClient {
 		public string Unbuffer_Args;
 
 		public ProxySocket(string HostName, int Port, string ProxyServerName, int ProxyPort, string Method){
-			this.Proc = new Process();
 			this.ProxyPort=ProxyPort;
 			this.HostName=HostName;
 			this.Port=Port;
@@ -56,7 +56,6 @@ namespace Rishi.ProxyClient {
 
 		}
 		public ProxySocket(string HostName, int Port, string ProxyServerName, int ProxyPort, string Method, string Unbuffer_Command, string Unbuffer_Args){
-			this.Proc = new Process();
 			this.ProxyPort=ProxyPort;
 			this.HostName=HostName;
 			this.Port=Port;
@@ -68,15 +67,10 @@ namespace Rishi.ProxyClient {
 
 		}
 		public void Start(){
-
-			this.Proc.StartInfo.FileName=$"{Unbuffer}";
-			this.Proc.StartInfo.UseShellExecute = false;
-			this.Proc.StartInfo.RedirectStandardOutput = true;
 			if (Method != "4" && Method != "5" && Method != "connect"){
 				System.Console.WriteLine($"Warning: Supported protocols are 4 (SOCKS v.4), 5 (SOCKS v.5) and connect (HTTPS proxy). If the protocol is not specified, SOCKS version 5 is used. Got: {Method}.");
 			}
-
-			Proc.StartInfo.Arguments=$"{Unbuffer_Args} nc -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}";
+			SS = new SHellSocket($"nc", " -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}");
 			Proc.StartInfo.RedirectStandardInput=true;
 			if (VERBOSE){
 				SetColour(5,0);
