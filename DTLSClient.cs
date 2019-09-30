@@ -65,6 +65,18 @@ namespace Rishi{
 				protected Stream S;
 				protected byte[] PSK;
 
+                ///<summary>
+                ///Constructor.
+                ///</summary>
+                ///<seealso cref="ProxySocket(string, int, string, int, string)"/>
+                /// <param name="Command">Target Hostname</param>
+                /// <param name="Port">Target Port.</param>
+                /// <param name="ProxyServerName">Proxy servername.</param>
+                /// <param name="ProxyPort">Proxy Port.</param>
+                /// <param name="Method">Method: "4" (SOCKS 4), "5" (SOCKS 5), "connect" (HTTP(S) CONNECT).</param>
+                /// <param name="Unbuffer_Command">Unbuffer command. Use "" or null to run directly at your own risk.</param>
+                /// <param name="Unbuffer_Args">Unbuffer arguments.</param>
+
 				public DTLSClient(string hostname, string port, byte[] PSK){
 						this.Port=port;
 						this.HostName=hostname;
