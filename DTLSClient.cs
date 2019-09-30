@@ -90,16 +90,30 @@ namespace Rishi{
 						B = Proc.StandardOutput;
 				}
 
+				///<summary>
+				///Get the Stream formed by the process.
+				///Should be Start()ed first.
+				///</summary>
 				public Stream GetStream(){
-						return new pair(B,A);
+						return S;
 				}
+				///<summary>
+				///Kill the proxy process.
+				///</summary>
 				public void Kill(){
-						Proc.Kill();
+						SS.Kill();
 				}
+				///<summary>
+				///Close the proxy process.
+				///</summary>
 				public void Close(){
-						Proc.Close();
+						SS.Close();
 				}
+				///<summary>
+				///Wait for the proxy process to exit.
+				///</summary>
 				public void WaitForExit(){
+						SS.WaitForExit();
 				}
 
 				private static void SetColour(int fg, int bg){
