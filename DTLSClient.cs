@@ -22,6 +22,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Buffers;
 using Rishi.PairStream;
+using Rishi.ShellBind;
 
 namespace Rishi{
 		public class DTLSClient{
