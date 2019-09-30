@@ -33,8 +33,17 @@ namespace Rishi.ProxyClient {
 		///Verbosity.
 		///</summary>
 		protected bool VERBOSE;
+		///<summary>
+		///The Stream Writer.
+		///</summary>
 		protected StreamWriter A;
+		///<summary>
+		///The Stream Reader.
+		///</summary>
 		protected StreamReader B;
+		///<summary>
+		///The ShellSocket.
+		///</summary>
 		protected ShellSocket SS;
 		protected string HostName;
 		protected int Port;
