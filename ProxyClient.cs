@@ -76,7 +76,7 @@ namespace Rishi.ProxyClient {
 			SS = new ShellSocket(PrCommand, ClArgs);
 			if (VERBOSE){
 				SetColour(5,0);
-				System.Console.Error.WriteLine(Proc.StartInfo.FileName + " " + Proc.StartInfo.Arguments);
+				System.Console.Error.WriteLine(PrCommand + " " + ClArgs);
 				ResetColour();
 			}
 			SS.Start();
@@ -87,13 +87,13 @@ namespace Rishi.ProxyClient {
 			return S;
 		}
 		public void Kill(){
-			Proc.Kill();
+			SS.Kill();
 		}
 		public void Close(){
-			Proc.Close();
+			SS.Close();
 		}
 		public void WaitForExit(){
-			Proc.WaitForExit();
+			SS.WaitForExit();
 		}
 
 		private static void SetColour(int fg, int bg){
