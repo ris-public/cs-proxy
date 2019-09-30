@@ -20,7 +20,9 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+#if !NETSTANDARD2_0
 using System.Buffers;
+#endif
 
 namespace Rishi.PairStream{
 ///<summary>
@@ -84,7 +86,7 @@ namespace Rishi.PairStream{
 			}
 		}
 ///<summary>
-/// Bind two streams (i.e. SR→SW, SW→SR) or read from Stream A and writeto Stream B and read from B and write to A).
+/// Bind two streams (i.e. SR→SW, SW→SR or read from Stream A and write to Stream B and read from B and write to A).
 ///</summary>
 		public static void BindStreams(Stream A, Stream B){
 			new Thread(()=>A.CopyTo(B)).Start();
@@ -136,6 +138,7 @@ namespace Rishi.PairStream{
 ///<summary>
 /// A subclass of <c>Rishi.PairStream.statpair</c> which copies to an array of streams.
 ///</summary>
+#if !NETSTANDARD2_0
 	public class DupStream : statpair {
 		public DupStream (StreamReader A, StreamWriter B): base(A, B){}
 		public async Task CopyToAsyncInternal(Stream[] destinations, Int32 bufferSize, CancellationToken cancellationToken)
@@ -158,6 +161,6 @@ namespace Rishi.PairStream{
 			}
 		}
 	}
-
+#endif
 
 }
