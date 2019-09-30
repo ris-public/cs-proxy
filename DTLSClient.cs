@@ -26,14 +26,43 @@ using Rishi.PairStream;
 namespace Rishi{
 	public class DTLSClient{
 
-		protected StreamWriter A;
-		protected StreamReader B;
-		protected Process Proc = new Process();
-		protected string hostname;
-		protected string port;
+				///<summary>
+				///Verbosity.
+				///</summary>
+				protected bool VERBOSE;
+				///<summary>
+				///The Stream Writer.
+				///</summary>
+				protected StreamWriter A;
+				///<summary>
+				///The Stream Reader.
+				///</summary>
+				protected StreamReader B;
+				///<summary>
+				///The ShellSocket.
+				///</summary>
+				protected ShellSocket SS;
+				///<summary>
+				///The Hostname of the final destination.
+				///</summary>
+				protected string HostName;
+				///<summary>
+				///The Port of the final destination.
+				///</summary>
+				protected int Port;
+				///<summary>
+				///The shell unbuffer/stdbuf command, default: none.
+				///</summary>
+				public string Unbuffer;
+				///<summary>
+				///Arguments to the shell unbuffer/stdbuf command, default: none.
+				///</summary>
+				public string Unbuffer_Args;
+				///<summary>
+				///The <see cref="System.IO.Stream" />.
+				///</summary>
+				protected Stream S;
 		protected byte[] PSK;
-		public string Unbuffer;
-		public string Unbuffer_Args;
 
 		public DTLSClient(string hostname, string port, byte[] PSK){
 			this.Proc = new Process();
