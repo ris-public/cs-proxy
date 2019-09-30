@@ -58,6 +58,9 @@ namespace Rishi.ProxyClient {
 		protected string ProxyServerName;
 		public string Unbuffer;
 		public string Unbuffer_Args;
+		///<summary>
+		///The <see cref="System.IO.Stream" />.
+		///</summary>
 		protected Stream S;
 
 		public ProxySocket(string HostName, int Port, string ProxyServerName, int ProxyPort, string Method){
