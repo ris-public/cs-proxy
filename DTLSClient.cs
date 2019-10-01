@@ -78,7 +78,7 @@ namespace Rishi{
 						this.Port=port;
 						this.HostName=hostname;
 						this.PSK=PSK;
-						this.Unbuffer_Command=Unbuffer_Command;
+						this.Unbuffer=Unbuffer_Command;
 						this.Unbuffer_Args=Unbuffer_Args;
 				}
 				///<summary>
