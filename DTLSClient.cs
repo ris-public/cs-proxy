@@ -68,13 +68,13 @@ namespace Rishi{
 				///<summary>
 				///Constructor.
 				///</summary>
-				///<seealso cref="ProxySocket(string, int, string, int, string)"/>
+				///<seealso cref="ProxySocket(string, int, byte[], int, string)"/>
 				/// <param name="hostname">Target Hostname</param>
 				/// <param name="port">Target Port.</param>
 				/// <param name="PSK">PSK.</param>
 				/// <param name="Unbuffer_Command">Unbuffer command. Use "" or null to run directly at your own risk.</param>
 				/// <param name="Unbuffer_Args">Unbuffer arguments.</param>
-				public DTLSClient(string hostname, string port, byte[] PSK){
+				public DTLSClient(string hostname, string port, byte[] PSK, string Unbuffer_Command, string Unbuffer_Args){
 						this.Port=port;
 						this.HostName=hostname;
 						this.PSK=PSK;
