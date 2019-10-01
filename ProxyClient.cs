@@ -73,7 +73,7 @@ namespace Rishi.ProxyClient {
 				///Constructor.
 				///</summary>
 				///<seealso cref="ProxySocket(string, int, string, int, string, string, string)"/>
-				/// <param name="Command">Target Hostname</param>
+				/// <param name="HostName">Target Hostname</param>
 				/// <param name="Port">Target Port.</param>
 				/// <param name="ProxyServerName">Proxy servername.</param>
 				/// <param name="ProxyPort">Proxy Port.</param>
@@ -93,7 +93,7 @@ namespace Rishi.ProxyClient {
 				///Constructor.
 				///</summary>
 				///<seealso cref="ProxySocket(string, int, string, int, string)"/>
-				/// <param name="Command">Target Hostname</param>
+				/// <param name="HostName">Target Hostname</param>
 				/// <param name="Port">Target Port.</param>
 				/// <param name="ProxyServerName">Proxy servername.</param>
 				/// <param name="ProxyPort">Proxy Port.</param>
