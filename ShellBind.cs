@@ -93,8 +93,12 @@ namespace Rishi.ShellBind {
 				///Specify whether to use GNU/BSD unbuffer (TCL expect).
 				///</summary>
 				public bool UseUnbuffer;
+                ///<summary>
+                ///Specify whether to use WinPTY.
+                ///</summary>
+                public bool UseWinpty;
 				///<summary>
-				///Constructor. Uses the GNU/BSD stdbuf by default (Unix/-like) or none on Windows. If you don't like it, please see the one which specifies it and pass an empty string.
+				///Constructor. Uses the GNU/BSD stdbuf by default (Unix/-like) or WinPTY on Windows. If you don't like it, please see the one which specifies it and pass an empty string.
 				///</summary>
 				/// <param name="Command">A command.</param>
 				/// <param name="Args">Arguments.</param>
@@ -109,8 +113,11 @@ namespace Rishi.ShellBind {
 								if ( IsOSPlatform(OSPlatform.Linux) ||  IsOSPlatform(OSPlatform.OSX))
 #endif
 										UseStdbuf=true;
-								else
+								else  if ( IsOSPlatform(OSPlatform.Windows) ){
 										UseStdbuf=false;
+										UseWinpty=true;
+								}
+								else UseStdbuf=false;
 						this._RedirectErrorsToConsole=false;
 						this.RedirectErrorsToStream=false;
 						this.VERBOSE=false;
@@ -150,6 +157,11 @@ namespace Rishi.ShellBind {
 						{	
 								Unbuffer = "unbuffer";
 								Unbuffer_Args="-p";
+						}
+						else if(UseWinpty)
+						{	
+								Unbuffer = "winpty.exe";
+								Unbuffer_Args="-Xallow-non-tty -Xplain";
 						}
 						if(Unbuffer == "" || Unbuffer==null){
 								this.Proc.StartInfo.FileName=$"{Command}";
