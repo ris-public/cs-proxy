@@ -65,27 +65,29 @@ namespace Rishi{
 				protected Stream S;
 				protected byte[] PSK;
 
-                ///<summary>
-                ///Constructor.
-                ///</summary>
-                ///<seealso cref="ProxySocket(string, int, string, int, string)"/>
-                /// <param name="hostname">Target Hostname</param>
-                /// <param name="port">Target Port.</param>
-                /// <param name="PSK">PSK.</param>
-                /// <param name="Unbuffer_Command">Unbuffer command. Use "" or null to run directly at your own risk.</param>
-                /// <param name="Unbuffer_Args">Unbuffer arguments.</param>
+				///<summary>
+				///Constructor.
+				///</summary>
+				///<seealso cref="ProxySocket(string, int, string, int, string)"/>
+				/// <param name="hostname">Target Hostname</param>
+				/// <param name="port">Target Port.</param>
+				/// <param name="PSK">PSK.</param>
+				/// <param name="Unbuffer_Command">Unbuffer command. Use "" or null to run directly at your own risk.</param>
+				/// <param name="Unbuffer_Args">Unbuffer arguments.</param>
 				public DTLSClient(string hostname, string port, byte[] PSK){
 						this.Port=port;
 						this.HostName=hostname;
 						this.PSK=PSK;
+						this.Unbuffer_Command=Unbuffer_Command;
+						this.Unbuffer_Args=Unbuffer_Args;
 				}
-                ///<summary>
-                ///Constructor.
-                ///</summary>
-                ///<seealso cref="ProxySocket(string, int, string, int, string)"/>
-                /// <param name="hostname">Target Hostname</param>
-                /// <param name="port">Target Port.</param>
-                /// <param name="PSK">PSK.</param>
+				///<summary>
+				///Constructor.
+				///</summary>
+				///<seealso cref="ProxySocket(string, int, string, int, string)"/>
+				/// <param name="hostname">Target Hostname</param>
+				/// <param name="port">Target Port.</param>
+				/// <param name="PSK">PSK.</param>
 				public DTLSClient(string hostname, string port, byte[] PSK){
 						this.Port=port;
 						this.HostName=hostname;
