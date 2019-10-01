@@ -68,7 +68,7 @@ namespace Rishi{
 				///<summary>
 				///Constructor.
 				///</summary>
-				///<seealso cref="ProxySocket(string, int, byte[], int, string)"/>
+				///<seealso cref="DTLSClient(string, int, byte[], string, string)"/>
 				/// <param name="hostname">Target Hostname</param>
 				/// <param name="port">Target Port.</param>
 				/// <param name="PSK">PSK.</param>
@@ -84,7 +84,7 @@ namespace Rishi{
 				///<summary>
 				///Constructor.
 				///</summary>
-				///<seealso cref="ProxySocket(string, int, string, int, string)"/>
+				///<seealso cref="DTLSClient(string, int, byte[])"/>
 				/// <param name="hostname">Target Hostname</param>
 				/// <param name="port">Target Port.</param>
 				/// <param name="PSK">PSK.</param>
