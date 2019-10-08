@@ -117,6 +117,9 @@ namespace Rishi.ProxyClient {
 						this.Unbuffer_Args=Unbuffer_Args;
 
 				}
+				///<summary>
+				///Start the connection.
+				///</summary>
 				public void Start(){
 						if (Method != "4" && Method != "5" && Method != "connect"){
 								System.Console.WriteLine($"Warning: Supported protocols are 4 (SOCKS v.4), 5 (SOCKS v.5) and connect (HTTPS proxy). If the protocol is not specified, SOCKS version 5 is used. Got: {Method}.");
