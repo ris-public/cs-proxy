@@ -103,6 +103,10 @@ namespace Rishi.ShellBind {
 				///</summary>
 				public bool AutoConfigure=true;
 				///<summary>
+				///The package name to download the files, default: WinPTY.
+				///</summary>
+				public string PackageName = "WinPTY";
+				///<summary>
 				///Constructor. Uses the GNU/BSD stdbuf by default (Unix/-like) or WinPTY on Windows. If you don't like it, please see the one which specifies it and pass an empty string.
 				///</summary>
 				/// <param name="Command">A command.</param>
@@ -196,7 +200,7 @@ namespace Rishi.ShellBind {
 						{
 								if (IsOSPlatform(OSPlatform.Windows) && IsInteractive() && AutoConfigure)
 								{
-										PromptDownload("WinPTY");
+										PromptDownload(PackageName);
 										Start();
 										return;
 								}
