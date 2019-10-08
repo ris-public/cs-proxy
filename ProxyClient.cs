@@ -70,7 +70,7 @@ namespace Rishi.ProxyClient {
 				///The <see cref="System.IO.Stream" />.
 				///</summary>
 				protected Stream S;
-///<summary>
+				///<summary>
 				///Auto configure the environment on failure on presumed interactive terminals.
 				///</summary>
 				public bool AutoConfigure=true;
@@ -124,6 +124,11 @@ namespace Rishi.ProxyClient {
 						string PrCommand = $"nc";
 						string ClArgs = $" -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}";
 						SS = new ShellSocket(PrCommand, ClArgs, Unbuffer, Unbuffer_Args);
+						if (AutoConfigure)
+						{
+							SS.AutoConfigure = true;
+							SS.PackageName = "NC";
+						}
 						if (VERBOSE){
 								SetColour(5,0);
 								System.Console.Error.WriteLine(PrCommand + " " + ClArgs);
