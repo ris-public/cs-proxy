@@ -27,6 +27,7 @@ using System.Buffers;
 using Rishi.PairStream;
 using System.Runtime.InteropServices;
 using static System.Runtime.InteropServices.RuntimeInformation;
+using System.Net;
 
 
 namespace Rishi.ShellBind {
@@ -93,10 +94,10 @@ namespace Rishi.ShellBind {
 				///Specify whether to use GNU/BSD unbuffer (TCL expect).
 				///</summary>
 				public bool UseUnbuffer;
-                ///<summary>
-                ///Specify whether to use WinPTY.
-                ///</summary>
-                public bool UseWinpty;
+				///<summary>
+				///Specify whether to use WinPTY.
+				///</summary>
+				public bool UseWinpty;
 				///<summary>
 				///Constructor. Uses the GNU/BSD stdbuf by default (Unix/-like) or WinPTY on Windows. If you don't like it, please see the one which specifies it and pass an empty string.
 				///</summary>
@@ -240,6 +241,123 @@ namespace Rishi.ShellBind {
 				private static void ResetColour(){
 						System.Console.Error.WriteLine("\u001b[39m");
 						System.Console.Error.WriteLine("\u001b[49m");
+				}
+				/// <summary>
+				/// Hack to check interactiveness.
+				/// </summary>
+				/// <returns></returns>
+				static private bool IsInteractive()
+				{
+						if (System.Console.IsInputRedirected || System.Console.IsInputRedirected) return false;
+						else return true;
+				}
+				/// <summary>
+				/// Prompt and download, with consent, the executable(s).
+				/// </summary>
+				/// <param name="EXEName">The executable.</param>
+static void PromptDownload(string EXEName)
+		{
+			string Prompt =
+					@"It appears that the executable " + EXEName + @" is not found in PATH. Would you
+like to download the file from the internet? Official builds are hosted
+at https://log.sep.al; The service is provided voluntarily by the author
+and the author takes no responsibility. Source code of the PHP scripts are
+available under 3-ClauseBSD license with query string ?source. Please type
+[yes] or [no].  By typing [yes], you agree to these conditions and allow
+one-time collection of anonymized (OS, Hardware) statistics for providing a
+better service. Alternatively, the executables can be manually placed from
+somewhere else.";
+			System.Console.WriteLine(Prompt);
+			string Input;
+			while (true)
+			{
+				System.Console.WriteLine("[yes]/[no]: ");
+				Input = System.Console.ReadLine().ToLower();
+				if (Input == "yes" || Input == "no") break;
+			}
+			if (Input == "yes") DownloadFile(EXEName);
+		}
+		/// <summary>
+		/// Download the files.
+		/// </summary>
+		/// <param name="EXEName">The executable.</param>
+		static void DownloadFile(string EXEName)
+		{
+			WebClient WC = new WebClient();
+			string[] URLs;
+			URLs = WC.DownloadString($"https://log.sep.al/get.php?osarchitecture={RuntimeInformation.OSArchitecture}&hwplatform={RuntimeInformation.ProcessArchitecture}&os={OSDescription}").Split('\n');
+			foreach (string URL in URLs)
+			{
+				string[] Fields = URL.Split('$');
+				if (Fields.Length == 3)
+				{
+					System.Console.WriteLine($"Downloading {Fields[2]}: {Fields[1]}");
+					try
+					{
+						WC.DownloadFile(Fields[1], Fields[0]);
+					}
+					catch (Exception E) { };
+				}
+			}
+		}
+				/// <summary>
+				/// Executable suffix list (auto-appended to files).
+				/// </summary>
+				/// <returns></returns>
+				static string[] ExecutableSuffixList()
+				{
+						if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+						{
+								return new string[] { ".com", ".exe", ".bat", ".cmd", "" };
+						}
+#if !(NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2)
+						else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)|| RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD))
+#else
+						else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+#endif
+						{
+								return new string[] { "" };
+						}
+						else return new string[] { "" };
+				}
+				/// <summary>
+				/// Check for executable's existence in the system PATH.
+				/// </summary>
+				/// <param name="ExecutableName">Executable name.</param>
+				/// <returns></returns>
+				static bool CheckExecutableExistence(string ExecutableName)
+				{
+						string[] Paths = GetPaths();
+						foreach (string Path in Paths)
+						{
+								foreach (string Suffix in ExecutableSuffixList())
+								{
+										string Filename = Path + "/" + ExecutableName + Suffix;
+										System.Console.WriteLine("Checking: {0}", Filename);
+										if (File.Exists(Filename)) return true;
+								}
+						}
+						return false;
+				}
+				/// <summary>
+				/// Get system PATH as string[].
+				/// </summary>
+				/// <returns></returns>
+				static public string[] GetPaths()
+				{
+						if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+						{
+								return Environment.GetEnvironmentVariable("PATH").Split(';');
+						}
+#if !(NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2)
+						else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)|| RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD))
+#else
+						else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+#endif
+						{
+								return Environment.GetEnvironmentVariable("PATH").Split(':');
+						}
+						else return new string[] { Directory.GetCurrentDirectory() };
 				}
 		}
 }
