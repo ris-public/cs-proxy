@@ -70,6 +70,10 @@ namespace Rishi.ProxyClient {
 				///The <see cref="System.IO.Stream" />.
 				///</summary>
 				protected Stream S;
+///<summary>
+				///Auto configure the environment on failure on presumed interactive terminals.
+				///</summary>
+				public bool AutoConfigure=true;
 
 				///<summary>
 				///Constructor.
