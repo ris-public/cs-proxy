@@ -30,6 +30,10 @@ namespace Rishi
 		protected byte[] PSK;
 		public string Unbuffer;
 		public string Unbuffer_Args;
+		///<summary>
+		///Auto configure the environment on failure on presumed interactive terminals.
+		///</summary>
+		public bool AutoConfigure=true;
 
 		public DTLSServer(string hostname, string port, byte[] PSK){
 			this.Proc = new Process();

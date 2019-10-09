@@ -66,6 +66,10 @@ namespace Rishi{
 				///</summary>
 				protected Stream S;
 				protected byte[] PSK;
+				///<summary>
+				///Auto configure the environment on failure on presumed interactive terminals.
+				///</summary>
+				public bool AutoConfigure=true;
 
 				///<summary>
 				///Constructor.
