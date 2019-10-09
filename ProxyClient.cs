@@ -142,7 +142,7 @@ namespace Rishi.ProxyClient {
 												NCatProxyType="http";
 												break;
 								}
-								PrCommand = $"nc";
+								PrCommand = $"./nc.exe";
 								ClArgs = $"--proxy {ProxyServerName}:{ProxyPort} --proxy-type {NCatProxyType} {HostName} {Port}";
 						}
 						else { 
