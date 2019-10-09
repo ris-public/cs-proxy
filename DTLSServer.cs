@@ -57,11 +57,11 @@ namespace Rishi
 				///<summary>
 				///The shell unbuffer/stdbuf command, default: none.
 				///</summary>
-				public string Unbuffer;
+				public string Unbuffer=null;
 				///<summary>
 				///Arguments to the shell unbuffer/stdbuf command, default: none.
 				///</summary>
-				public string Unbuffer_Args;
+				public string Unbuffer_Args=null;
 				///<summary>
 				///The <see cref="System.IO.Stream" />.
 				///</summary>
