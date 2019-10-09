@@ -123,7 +123,7 @@ namespace Rishi
 				///</summary>
 				public Stream GetStream()
 				{
-						return S;
+						return SS.GetStream();
 				}
 				///<summary>
 				///Kill the proxy process.
