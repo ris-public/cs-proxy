@@ -113,7 +113,7 @@ namespace Rishi{
 						if (AutoConfigure)
 						{
 							SS.AutoConfigure = true;
-							SS.PackageName = "NC";
+							SS.PackageName = "OpenSSL";
 						}
 						SS.Start();
 				}
