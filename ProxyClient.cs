@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 #if !NETSTANDARD2_0
 using System.Buffers;
 #endif
+using System.Runtime.InteropServices;
 using Rishi.ProxyClient;
 using Rishi.PairStream;
 using Rishi.ShellBind;
@@ -124,9 +125,12 @@ namespace Rishi.ProxyClient {
 						if (Method != "4" && Method != "5" && Method != "connect"){
 								System.Console.WriteLine($"Warning: Supported protocols are 4 (SOCKS v.4), 5 (SOCKS v.5) and connect (HTTPS proxy). If the protocol is not specified, SOCKS version 5 is used. Got: {Method}.");
 						}
-if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+						string NCatProxyType;
+						string PrCommand;
+						string ClArgs;
+						if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 						{
-								string NCatProxyType;
+								NCatProxyType="";
 								switch (Method){
 										case "4":
 												NCatProxyType="socks4";
@@ -138,12 +142,12 @@ if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 												NCatProxyType="http";
 												break;
 								}
-								string PrCommand = $"nc";
-								string ClArgs = $"--proxy {ProxyServerName}:{ProxyPort} --proxy-type {NCatProxyType} {HostName} {Port}";
+								PrCommand = $"nc";
+								ClArgs = $"--proxy {ProxyServerName}:{ProxyPort} --proxy-type {NCatProxyType} {HostName} {Port}";
 						}
 						else { 
-								string PrCommand = $"nc";
-								string ClArgs = $" -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}";
+								PrCommand = $"nc";
+								ClArgs = $" -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}";
 						}
 						SS = new ShellSocket(PrCommand, ClArgs, Unbuffer, Unbuffer_Args);
 						if (AutoConfigure)
