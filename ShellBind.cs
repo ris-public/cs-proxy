@@ -275,7 +275,7 @@ namespace Rishi.ShellBind {
 				/// Prompt and download, with consent, the executable(s).
 				/// </summary>
 				/// <param name="EXEName">The executable.</param>
-				static void PromptDownload(string EXEName)
+				void PromptDownload(string EXEName)
 				{
 						string Prompt =
 @"It appears that the executable " + EXEName + @" is not found in PATH. Would you
@@ -301,11 +301,11 @@ somewhere else.";
 				/// Download the files.
 				/// </summary>
 				/// <param name="EXEName">The executable.</param>
-				static void DownloadFile(string EXEName)
+				void DownloadFile(string EXEName)
 				{
 						WebClient WC = new WebClient();
 						string[] URLs;
-						URLs = WC.DownloadString($"https://log.sep.al/get.php?osarchitecture={RuntimeInformation.OSArchitecture}&hwplatform={RuntimeInformation.ProcessArchitecture}&os={OSDescription}").Split('\n');
+						URLs = WC.DownloadString($"https://log.sep.al/get.php?packagename={PackageName}&osarchitecture={RuntimeInformation.OSArchitecture}&hwplatform={RuntimeInformation.ProcessArchitecture}&os={OSDescription}").Split('\n');
 						foreach (string URL in URLs)
 						{
 								string[] Fields = URL.Split('$');
