@@ -345,7 +345,7 @@ somewhere else.";
 				/// </summary>
 				/// <param name="ExecutableName">Executable name.</param>
 				/// <returns></returns>
-				static bool CheckExecutableExistence(string ExecutableName)
+				public static bool CheckExecutableExistence(string ExecutableName)
 				{
 						string[] Paths = GetPaths();
 						foreach (string Path in Paths)

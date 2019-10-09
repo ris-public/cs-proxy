@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 #if !NETSTANDARD2_0
 using System.Buffers;
 #endif
+using System.Runtime.InteropServices;
 using Rishi.PairStream;
 using Rishi.ShellBind;
 
@@ -104,11 +105,13 @@ namespace Rishi{
 				///</summary>
 				public void Start(){
 						string psk_hex=BitConverter.ToString(PSK).Replace("-", String.Empty);
+						string PrCommand="";
 						if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)){
-								string PrCommand=$"./openssl.exe";
+								if(!ShellSocket.CheckExecutableExistence("openssl.exe"))
+								PrCommand=$"./openssl.exe";
 						}
 						else {
-								string PrCommand=$"openssl";
+								PrCommand=$"openssl";
 						}
 						string ClArguments=$"s_client -dtls -connect {HostName}:{Port} -psk {psk_hex} -quiet";
 						SS = new ShellSocket(PrCommand, ClArguments, Unbuffer, Unbuffer_Args);

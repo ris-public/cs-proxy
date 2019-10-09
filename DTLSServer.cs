@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 #if !NETSTANDARD2_0
 using System.Buffers;
 #endif
+using System.Runtime.InteropServices;
 using Rishi.PairStream;
 using Rishi.ShellBind;
 
@@ -103,8 +104,9 @@ namespace Rishi
 				public void Start(){
 
 						string psk_hex = BitConverter.ToString(PSK).Replace("-", String.Empty);
-						string PrCommand;
+						string PrCommand="";
 						if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)){
+								if(!ShellSocket.CheckExecutableExistence("openssl.exe"))
 								PrCommand=$"./openssl.exe";
 						}
 						else {
