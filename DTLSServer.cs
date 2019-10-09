@@ -44,6 +44,9 @@ namespace Rishi
 			//Unbuffer_Args="-i0 -o0";
 			
 		}
+		///<summary>
+		///Start the connection.
+		///</summary>
 		public void Start(){
 		
 			this.Proc.StartInfo.FileName=$"{Unbuffer}";

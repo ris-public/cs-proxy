@@ -99,6 +99,9 @@ namespace Rishi{
 						this.HostName=hostname;
 						this.PSK=PSK;
 				}
+				///<summary>
+				///Start the connection.
+				///</summary>
 				public void Start(){
 						string psk_hex=BitConverter.ToString(PSK).Replace("-", String.Empty);
 						string PrCommand=$"openssl";
