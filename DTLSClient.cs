@@ -104,7 +104,12 @@ namespace Rishi{
 				///</summary>
 				public void Start(){
 						string psk_hex=BitConverter.ToString(PSK).Replace("-", String.Empty);
-						string PrCommand=$"openssl";
+						if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)){
+								string PrCommand=$"./openssl.exe";
+						}
+						else {
+								string PrCommand=$"openssl";
+						}
 						string ClArguments=$"s_client -dtls -connect {HostName}:{Port} -psk {psk_hex} -quiet";
 						SS = new ShellSocket(PrCommand, ClArguments, Unbuffer, Unbuffer_Args);
 						SetColour(5,0);
@@ -112,8 +117,8 @@ namespace Rishi{
 						ResetColour();
 						if (AutoConfigure)
 						{
-							SS.AutoConfigure = true;
-							SS.PackageName = "OpenSSL";
+								SS.AutoConfigure = true;
+								SS.PackageName = "OpenSSL";
 						}
 						SS.Start();
 				}
