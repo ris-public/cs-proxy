@@ -29,8 +29,12 @@ namespace Rishi.DTLSC
 			Console.Error.WriteLine("Hello World!");
 			ResetColour();
 			DTLSClient dtls = new DTLSClient("127.0.0.1", "10000", new byte[] {0xBA,0xA0});
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)){
+			}
+			else{
 			dtls.Unbuffer="stdbuf";
 			dtls.Unbuffer_Args="-i0 -o0";
+			}
 			dtls.Start();
 			statpair IOStream = new statpair(new StreamReader(Console.OpenStandardInput()), new StreamWriter(Console.OpenStandardOutput()));
 			new Thread(()=>IOStream.CopyTo(dtls.GetStream(), 16)).Start();
