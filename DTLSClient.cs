@@ -107,6 +107,11 @@ namespace Rishi{
 						SetColour(5,0);
 						System.Console.Error.WriteLine(PrCommand + " " + ClArguments);
 						ResetColour();
+						if (AutoConfigure)
+						{
+							SS.AutoConfigure = true;
+							SS.PackageName = "NC";
+						}
 						SS.Start();
 				}
 
