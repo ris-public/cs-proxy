@@ -92,8 +92,8 @@ namespace Rishi.ProxyClient {
 						this.ProxyServerName=ProxyServerName;
 						this.Method=Method;
 						this.VERBOSE=false;
-						Unbuffer = "stdbuf";
-						Unbuffer_Args="-i0 -o0";
+						Unbuffer = null;
+						Unbuffer_Args=null;
 
 				}
 				///<summary>
@@ -149,11 +149,14 @@ namespace Rishi.ProxyClient {
 								PrCommand = $"nc";
 								ClArgs = $" -X {Method} -x {ProxyServerName}:{ProxyPort} {HostName} {Port}";
 						}
-						SS = new ShellSocket(PrCommand, ClArgs, Unbuffer, Unbuffer_Args);
+						if (Unbuffer==null)
+								SS = new ShellSocket(PrCommand, ClArgs, Unbuffer, Unbuffer_Args);
+						else
+								SS = new ShellSocket(PrCommand, ClArgs);
 						if (AutoConfigure)
 						{
-							SS.AutoConfigure = true;
-							SS.PackageName = "NC";
+								SS.AutoConfigure = true;
+								SS.PackageName = "NC";
 						}
 						if (VERBOSE){
 								SetColour(5,0);
