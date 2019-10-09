@@ -107,16 +107,21 @@ namespace Rishi
 						string PrCommand="";
 						if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)){
 								if(!ShellSocket.CheckExecutableExistence("openssl.exe"))
-								PrCommand=$"./openssl.exe";
+										PrCommand=$"./openssl.exe";
 						}
 						else {
 								PrCommand=$"openssl";
 						}
 						string ClArguments = $"s_server -dtls -accept {Port} -nocert -psk {psk_hex}";
-						SS = new ShellSocket(PrCommand, ClArguments, Unbuffer, Unbuffer_Args);
-						SetColour(5, 0);
-						System.Console.Error.WriteLine(PrCommand + " " + ClArguments);
-						ResetColour();
+						if (Unbuffer==null)
+								SS = new ShellSocket(PrCommand, ClArguments, Unbuffer, Unbuffer_Args);
+						else
+								SS = new ShellSocket(PrCommand, ClArguments);
+						if (VERBOSE) { 
+								SetColour(5, 0);
+								System.Console.Error.WriteLine(PrCommand + " " + ClArguments);
+								ResetColour();
+						}
 						if (AutoConfigure)
 						{
 								SS.AutoConfigure = true;
