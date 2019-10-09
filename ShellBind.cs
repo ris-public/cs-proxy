@@ -353,7 +353,7 @@ somewhere else.";
 								foreach (string Suffix in ExecutableSuffixList())
 								{
 										string Filename = Path + "/" + ExecutableName + Suffix;
-										System.Console.WriteLine("Checking: {0}", Filename);
+										//System.Console.WriteLine("Checking: {0}", Filename);
 										if (File.Exists(Filename)) return true;
 								}
 						}
