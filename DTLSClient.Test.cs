@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 #if !NETSTANDARD2_0
 using System.Buffers;
 #endif
+using System.Runtime.InteropServices;
 using Rishi.ProxyClient;
 using Rishi.PairStream;
 
