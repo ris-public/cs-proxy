@@ -31,6 +31,8 @@ namespace Rishi.DTLSC
 			ResetColour();
 			DTLSClient dtls = new DTLSClient("127.0.0.1", "10000", new byte[] {0xBA,0xA0});
 			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)){
+			dtls.Unbuffer="winpty.exe";
+			dtls.Unbuffer_Args="-Xplain -Xallow-non-tty";
 			}
 			else{
 			dtls.Unbuffer="stdbuf";
