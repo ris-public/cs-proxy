@@ -103,11 +103,12 @@ namespace Rishi
 				public void Start(){
 
 						string psk_hex = BitConverter.ToString(PSK).Replace("-", String.Empty);
+						string PrCommand;
 						if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)){
-								string PrCommand=$"./openssl.exe";
+								PrCommand=$"./openssl.exe";
 						}
 						else {
-								string PrCommand=$"openssl";
+								PrCommand=$"openssl";
 						}
 						string ClArguments = $"s_server -dtls -accept {Port} -nocert -psk {psk_hex}";
 						SS = new ShellSocket(PrCommand, ClArguments, Unbuffer, Unbuffer_Args);
