@@ -89,7 +89,7 @@ namespace Rishi
 				///<seealso cref="DTLSServer(string, byte[])"/>
 				/// <param name="port">Target Port.</param>
 				/// <param name="PSK">PSK.</param>
-				/// <param name="Unbuffer_Command">Unbuffer command. Use "" or null to run directly at your own risk.</param>
+				/// <param name="Unbuffer_Command">Unbuffer command. Use "" or null (null tries to automatically detect) to run directly at your own risk.</param>
 				/// <param name="Unbuffer_Args">Unbuffer arguments.</param>
 				public DTLSServer(string port, byte[] PSK, string Unbuffer_Command, string Unbuffer_Args)
 				{

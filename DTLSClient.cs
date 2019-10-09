@@ -79,7 +79,7 @@ namespace Rishi{
 				/// <param name="hostname">Target Hostname</param>
 				/// <param name="port">Target Port.</param>
 				/// <param name="PSK">PSK.</param>
-				/// <param name="Unbuffer_Command">Unbuffer command. Use "" or null to run directly at your own risk.</param>
+				/// <param name="Unbuffer_Command">Unbuffer command. Use "" or null (null tries to automatically detect) to run directly at your own risk.</param>
 				/// <param name="Unbuffer_Args">Unbuffer arguments.</param>
 				public DTLSClient(string hostname, string port, byte[] PSK, string Unbuffer_Command, string Unbuffer_Args){
 						this.Port=port;
